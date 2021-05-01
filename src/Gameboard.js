@@ -1,7 +1,7 @@
 const Gameboard = () => {
     const shipPlacements = {};
     const placeShip = (ship) => {
-        shipPlacements[ship.name] = ship.placementTiles;
+        shipPlacements[ship.name] = ship;
     }
 
     return { shipPlacements, placeShip }
