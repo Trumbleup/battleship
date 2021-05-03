@@ -3,10 +3,10 @@ import Ship from "./Ship.js"
 describe('testing ship functions', () => {
     let testShip;
     beforeEach(() => {
-        testShip = Ship("test", ["A8","A9","A10"]);
+        testShip = Ship(5);
     })
-    test("placement Tiles are [A8,A9,A10]", () => {
-        expect(testShip.placementTiles).toStrictEqual(["A8","A9","A10"]);
+    test("Ship length is equal to 5", () => {
+        expect(testShip.length).toBe(5);
     })
     test("Ship registers a single hit", () => {
         testShip.hit("A8");
@@ -23,6 +23,8 @@ describe('testing ship functions', () => {
         expect(testShip.isSunk()).toBeFalsy();
     })
     test("Ship registers when it is sunk", () => {
+        testShip.hit("A6");
+        testShip.hit("A7");
         testShip.hit("A8");
         testShip.hit("A9");
         testShip.hit("A10");

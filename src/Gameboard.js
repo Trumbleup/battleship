@@ -1,10 +1,24 @@
 const Gameboard = () => {
     const shipPlacements = {};
-    const placeShip = (ship) => {
-        shipPlacements[ship.name] = ship;
+    const missedShots = [];
+    const placeShip = (shipObj, coords) => {
+        shipPlacements[shipObj.name] = {
+            ship: shipObj,
+            coordinates: coords
+        }
     }
-
-    return { shipPlacements, placeShip }
+    const receiveAttack = (coord) => {
+        for (let placedShip in shipPlacements) {
+            if (placedShip.coordinates.includes(coord)) {
+                placedShip.ship.hit(coord)
+                return
+            } else {
+                missedShots.push(coord)
+            }
+        }
+    }
+    
+    return { shipPlacements, placeShip, receiveAttack, missedShots }
 }
 
 export default Gameboard;
