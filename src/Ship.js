@@ -2,7 +2,7 @@ const Ship = (shipLength, name) => {
     const length = shipLength;
     const hitTiles = [];
     const hit = (tile) => {
-        hitTiles.push(tile)
+        hitTiles.push(tile);
     };
     const isSunk = () => {
         if (hitTiles.length == length) {

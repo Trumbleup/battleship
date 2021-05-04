@@ -9,8 +9,8 @@ const Gameboard = () => {
     }
     const receiveAttack = (coord) => {
         for (let placedShip in shipPlacements) {
-            if (placedShip.coordinates.includes(coord)) {
-                placedShip.ship.hit(coord)
+            if (shipPlacements[placedShip].coordinates.includes(coord)) {
+                shipPlacements[placedShip].ship.hit(coord);
                 return
             } else {
                 missedShots.push(coord)

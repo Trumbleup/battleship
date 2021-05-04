@@ -78,7 +78,7 @@ describe("Testing attack functions", () => {
     })
     test("Carrier should return hitTiles equaling ['B1']", () => {
         gameBoard1.receiveAttack("B1");
-        expect(ship1.ship.hitTiles).toBe(["B1"]);
+        expect(gameBoard1.shipPlacements['carrier'].ship.hitTiles).toStrictEqual(["B1"]);
     })
 })
 
