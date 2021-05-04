@@ -16,8 +16,17 @@ const Gameboard = () => {
         }
         missedShots.push(coord)
     }
+
+    const reportAllSunk = () => {
+        for (let placedShip in shipPlacements) {
+            if (!shipPlacements[placedShip].ship.isSunk()) {
+                return false
+            }
+        }
+        return true
+    }
     
-    return { shipPlacements, placeShip, receiveAttack, missedShots }
+    return { shipPlacements, placeShip, receiveAttack, missedShots, reportAllSunk }
 }
 
 export default Gameboard;

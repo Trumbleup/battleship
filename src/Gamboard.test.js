@@ -128,6 +128,47 @@ describe("Testing the sinking functionality", () => {
         gameBoard1.receiveAttack("B5");
         expect(gameBoard1.shipPlacements['carrier'].ship.isSunk).toBeTruthy();
     })
+    test('All ships should be sunk', () => {
+        gameBoard1.receiveAttack("B1");
+        gameBoard1.receiveAttack("B2");
+        gameBoard1.receiveAttack("B3");
+        gameBoard1.receiveAttack("B4");
+        gameBoard1.receiveAttack("B5");
+        gameBoard1.receiveAttack("D1");
+        gameBoard1.receiveAttack("E1");
+        gameBoard1.receiveAttack("F1");
+        gameBoard1.receiveAttack("G1");
+        gameBoard1.receiveAttack("D3");
+        gameBoard1.receiveAttack("D4");
+        gameBoard1.receiveAttack("D5");
+        gameBoard1.receiveAttack("E6");
+        gameBoard1.receiveAttack("E7");
+        gameBoard1.receiveAttack("E8");
+        gameBoard1.receiveAttack("F5");
+        gameBoard1.receiveAttack("G5");
+        
+        expect(gameBoard1.reportAllSunk()).toBeTruthy();
+    })
+    test('All ships should not be sunk', () => {
+        gameBoard1.receiveAttack("B1");
+        gameBoard1.receiveAttack("B2");
+        gameBoard1.receiveAttack("B3");
+        gameBoard1.receiveAttack("B4");
+        gameBoard1.receiveAttack("B5");
+        gameBoard1.receiveAttack("D1");
+        gameBoard1.receiveAttack("E1");
+        gameBoard1.receiveAttack("F1");
+        gameBoard1.receiveAttack("G1");
+        gameBoard1.receiveAttack("D3");
+        gameBoard1.receiveAttack("D4");
+        gameBoard1.receiveAttack("D5");
+        gameBoard1.receiveAttack("E6");
+        gameBoard1.receiveAttack("E7");
+        gameBoard1.receiveAttack("E8");
+        gameBoard1.receiveAttack("F5");
+        
+        expect(gameBoard1.reportAllSunk()).toBeFalsy();
+    })
 })
 
 
