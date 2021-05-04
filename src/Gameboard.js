@@ -1,6 +1,9 @@
-const Gameboard = () => {
+const Gameboard = (id) => {
+    const gameboardId = id;
+    const getId = () => gameboardId;
     const shipPlacements = {};
     const missedShots = [];
+    const getMissedShots = () => missedShots;
     const placeShip = (shipObj, coords) => {
         shipPlacements[shipObj.name] = {
             ship: shipObj,
@@ -26,7 +29,7 @@ const Gameboard = () => {
         return true
     }
     
-    return { shipPlacements, placeShip, receiveAttack, missedShots, reportAllSunk }
+    return { shipPlacements, placeShip, receiveAttack, getMissedShots, reportAllSunk, getId }
 }
 
 export default Gameboard;

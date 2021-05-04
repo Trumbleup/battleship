@@ -9,7 +9,7 @@ describe("Testing Gameboard placements", () => {
     let ship4;
     let ship5
     beforeEach(() => {
-        gameBoard1 = Gameboard();
+        gameBoard1 = Gameboard('player');
         ship1 = Ship(5, 'carrier');
         ship2 = Ship(4, 'battleship');
         ship3 = Ship(3, 'cruiser');
@@ -64,7 +64,7 @@ describe("Testing receive attack functions", () => {
     let ship4;
     let ship5
     beforeEach(() => {
-        gameBoard1 = Gameboard();
+        gameBoard1 = Gameboard('player');
         ship1 = Ship(5, 'carrier');
         ship2 = Ship(4, 'battleship');
         ship3 = Ship(3, 'cruiser');
@@ -78,7 +78,7 @@ describe("Testing receive attack functions", () => {
     })
     test("Carrier should return hitTiles equaling ['B1']", () => {
         gameBoard1.receiveAttack("B1");
-        expect(gameBoard1.shipPlacements['carrier'].ship.hitTiles).toStrictEqual(["B1"]);
+        expect(gameBoard1.shipPlacements['carrier'].ship.getHitTiles()).toStrictEqual(["B1"]);
     })
     test('Carrier should return hitTiles equaling ["B1", "B2", "B3", "B4", "B5"]', () => {
         gameBoard1.receiveAttack("B1");
@@ -86,17 +86,17 @@ describe("Testing receive attack functions", () => {
         gameBoard1.receiveAttack("B3");
         gameBoard1.receiveAttack("B4");
         gameBoard1.receiveAttack("B5");
-        expect(gameBoard1.shipPlacements['carrier'].ship.hitTiles).toStrictEqual(["B1", "B2", "B3", "B4", "B5"]);
+        expect(gameBoard1.shipPlacements['carrier'].ship.getHitTiles()).toStrictEqual(["B1", "B2", "B3", "B4", "B5"]);
     })
     test('Destroyer should return hitTiles equaling ["F5", "G5"]', () => {
         gameBoard1.receiveAttack("F5");
         gameBoard1.receiveAttack("G5");
-        expect(gameBoard1.shipPlacements['destroyer'].ship.hitTiles).toStrictEqual(["F5", "G5"]);
+        expect(gameBoard1.shipPlacements['destroyer'].ship.getHitTiles()).toStrictEqual(["F5", "G5"]);
     })
     test('Missed Attacks Array should equal ["F9"]', () => {
         gameBoard1.receiveAttack("F5");
         gameBoard1.receiveAttack("F9");
-        expect(gameBoard1.missedShots).toStrictEqual(["F9"]);
+        expect(gameBoard1.getMissedShots()).toStrictEqual(["F9"]);
     })
 })
 
@@ -108,7 +108,7 @@ describe("Testing the sinking functionality", () => {
     let ship4;
     let ship5;
     beforeEach(() => {
-        gameBoard1 = Gameboard();
+        gameBoard1 = Gameboard('player');
         ship1 = Ship(5, 'carrier');
         ship2 = Ship(4, 'battleship');
         ship3 = Ship(3, 'cruiser');
@@ -169,6 +169,11 @@ describe("Testing the sinking functionality", () => {
         
         expect(gameBoard1.reportAllSunk()).toBeFalsy();
     })
+})
+
+test('Gameboard id should equal player', () => {
+    const playerGameboard = Gameboard('player');
+    expect(playerGameboard.getId()).toBe('player');
 })
 
 
