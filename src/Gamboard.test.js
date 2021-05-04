@@ -56,7 +56,7 @@ describe("Testing Gameboard placements", () => {
     });
 })
 
-describe("Testing attack functions", () => {
+describe("Testing receive attack functions", () => {
     let gameBoard1;
     let ship1;
     let ship2;
@@ -79,6 +79,24 @@ describe("Testing attack functions", () => {
     test("Carrier should return hitTiles equaling ['B1']", () => {
         gameBoard1.receiveAttack("B1");
         expect(gameBoard1.shipPlacements['carrier'].ship.hitTiles).toStrictEqual(["B1"]);
+    })
+    test('Carrier should return hitTiles equaling ["B1", "B2", "B3", "B4", "B5"]', () => {
+        gameBoard1.receiveAttack("B1");
+        gameBoard1.receiveAttack("B2");
+        gameBoard1.receiveAttack("B3");
+        gameBoard1.receiveAttack("B4");
+        gameBoard1.receiveAttack("B5");
+        expect(gameBoard1.shipPlacements['carrier'].ship.hitTiles).toStrictEqual(["B1", "B2", "B3", "B4", "B5"]);
+    })
+    test('Destroyer should return hitTiles equaling ["F5", "G5"]', () => {
+        gameBoard1.receiveAttack("F5");
+        gameBoard1.receiveAttack("G5");
+        expect(gameBoard1.shipPlacements['destroyer'].ship.hitTiles).toStrictEqual(["F5", "G5"]);
+    })
+    test('Missed Attacks Array should equal ["F9"]', () => {
+        gameBoard1.receiveAttack("F5");
+        gameBoard1.receiveAttack("F9");
+        expect(gameBoard1.missedShots).toStrictEqual(["F9"]);
     })
 })
 

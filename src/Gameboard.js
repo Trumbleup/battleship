@@ -12,10 +12,9 @@ const Gameboard = () => {
             if (shipPlacements[placedShip].coordinates.includes(coord)) {
                 shipPlacements[placedShip].ship.hit(coord);
                 return
-            } else {
-                missedShots.push(coord)
             }
         }
+        missedShots.push(coord)
     }
     
     return { shipPlacements, placeShip, receiveAttack, missedShots }
