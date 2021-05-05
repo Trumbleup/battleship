@@ -68,6 +68,7 @@ describe('Testing the Player attack method', () => {
         expect(computerGameboard.getMissedShots()).toStrictEqual(["A1"]);
     })
     test("Player's gameboard correctly records a missed shot by the Computer player", () => {
+        player.attack(computerPlayer, computerGameboard, "A1");
         computerPlayer.attack(player, playerGameboard, "A1");
         expect(playerGameboard.getMissedShots()).toStrictEqual(["A1"]);
     })
@@ -76,7 +77,26 @@ describe('Testing the Player attack method', () => {
         expect(computerGameboard.shipPlacements['battleship'].ship.getHitTiles()).toStrictEqual(["H1"]);
     })
     test("Player's gameboard correctly records a shot by the Computer player", () => {
+        player.attack(computerPlayer, computerGameboard, "A1");
         computerPlayer.attack(player, playerGameboard, "D1");
         expect(playerGameboard.shipPlacements['battleship'].ship.getHitTiles()).toStrictEqual(["D1"]);
+    })
+    test("Player cannot attack enemy gameboard after their turn", () => {
+        player.attack(computerPlayer, computerGameboard, "A1");
+        expect(player.attack(computerPlayer, computerGameboard, "A2")).toBeFalsy();
+    })
+    test("Player can attack enemy gameboard after enemy's turn", () => {
+        player.attack(computerPlayer, computerGameboard, "A1");
+        computerPlayer.attack(player, playerGameboard, "D1");
+        expect(player.attack(computerPlayer, computerGameboard, "A2")).toBeTruthy();
+    })
+    test("Computer AI correctly generates random letter from A-J", () => {
+        expect(computerPlayer.generateRandomLetter()).toMatch(/[A-J]/);
+    })
+    test("Computer AI does not generate random letter outside of A-J", () => {
+        expect(computerPlayer.generateRandomLetter()).not.toMatch(/[K-Z]/);
+    })
+    test("Computer AI generates random coordinate", () => {
+        expect(computerPlayer.getRandomCoordinate()).toMatch(/[A-J][1-9]|10/);
     })
 })
