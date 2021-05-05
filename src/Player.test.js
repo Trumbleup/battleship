@@ -90,6 +90,60 @@ describe('Testing the Player attack method', () => {
         computerPlayer.attack(player, playerGameboard, "D1");
         expect(player.attack(computerPlayer, computerGameboard, "A2")).toBeTruthy();
     })
+})
+
+describe("Testing computer AI functions", () => {
+    let player;
+    let computerPlayer;
+    let playerGameboard;
+    let computerGameboard;
+    let ship1;
+    let ship2;
+    let ship3;
+    let ship4;
+    let ship5;
+    beforeEach(() => {
+        player = Player(true, 'player');
+        computerPlayer = Player(false, 'computer');
+        playerGameboard = Gameboard('player');
+        computerGameboard = Gameboard('computer');
+        ship1 = Ship(5, 'carrier');
+        ship2 = Ship(4, 'battleship');
+        ship3 = Ship(3, 'cruiser');
+        ship4 = Ship(3, 'submarine');
+        ship5 = Ship(2, 'destroyer');
+        playerGameboard.placeShip(ship1, ["B1", "B2", "B3", "B4", "B5"]);
+        playerGameboard.placeShip(ship2, ["D1", "E1", "F1", "G1"]);
+        playerGameboard.placeShip(ship3, ["D3", "D4", "D5"]);
+        playerGameboard.placeShip(ship4, ["E6", "E7", "E8"]);
+        playerGameboard.placeShip(ship5, ["F5", "G5"]);
+        computerGameboard.placeShip(ship1, ["C1", "C2", "C3", "C4", "C5"]);
+        computerGameboard.placeShip(ship2, ["E1", "F1", "G1", "H1"]);
+        computerGameboard.placeShip(ship3, ["E3", "E4", "E5"]);
+        computerGameboard.placeShip(ship4, ["F6", "F7", "F8"]);
+        computerGameboard.placeShip(ship5, ["I5", "J5"]);
+        player.attack(computerPlayer, computerGameboard, "A1");
+        computerPlayer.attack(player, playerGameboard, "A1");
+        player.attack(computerPlayer, computerGameboard, "A2");
+        computerPlayer.attack(player, playerGameboard, "A2");
+        player.attack(computerPlayer, computerGameboard, "A3");
+        computerPlayer.attack(player, playerGameboard, "A3");
+        player.attack(computerPlayer, computerGameboard, "A4");
+        computerPlayer.attack(player, playerGameboard, "A4");
+        player.attack(computerPlayer, computerGameboard, "A5");
+        computerPlayer.attack(player, playerGameboard, "A5");
+        player.attack(computerPlayer, computerGameboard, "A6");
+        computerPlayer.attack(player, playerGameboard, "A6");
+        player.attack(computerPlayer, computerGameboard, "A7");
+        computerPlayer.attack(player, playerGameboard, "A7");
+        player.attack(computerPlayer, computerGameboard, "A8");
+        computerPlayer.attack(player, playerGameboard, "A8");
+        player.attack(computerPlayer, computerGameboard, "A9");
+        computerPlayer.attack(player, playerGameboard, "A9");
+        player.attack(computerPlayer, computerGameboard, "A10");
+        computerPlayer.attack(player, playerGameboard, "A10");
+        player.attack(computerPlayer, computerGameboard, "B1"); 
+    });
     test("Computer AI correctly generates random letter from A-J", () => {
         expect(computerPlayer.generateRandomLetter()).toMatch(/[A-J]/);
     })
@@ -97,6 +151,9 @@ describe('Testing the Player attack method', () => {
         expect(computerPlayer.generateRandomLetter()).not.toMatch(/[K-Z]/);
     })
     test("Computer AI generates random coordinate", () => {
-        expect(computerPlayer.getRandomCoordinate()).toMatch(/[A-J][1-9]|10/);
-    })
+        // expect(computerPlayer.getRandomCoordinate()).toMatch(/[A-J][1-9]|10/);  check the 10 for the regex
+    }) 
+    test("Computer AI generates a random coordinate that Computer hasn't attacked", () => {
+        // expect(computerPlayer.getRandomCoordinate()).not.toMatch(/[A][1-9]|10/) check the 10 for the regex
+    });
 })
