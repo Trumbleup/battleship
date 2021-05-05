@@ -6,15 +6,16 @@ const Player = (turn, id) => {
     const setTurn = (newTurn) => {
        isTurn = newTurn
     }
+    const playerHasAttacked = [];
+
     const attack = (enemyPlayer, enemyGameboard, coord) => {
         if (!isTurn) return null
         enemyGameboard.receiveAttack(coord);
+        playerHasAttacked.push(coord);
         setTurn(false);
         enemyPlayer.setTurn(true);
         return true
     }
-
-    const hitTiles = [];
 
     const generateRandomLetter = () => {
         const alphabetRange = "ABCDEFGHIJ";
@@ -30,7 +31,11 @@ const Player = (turn, id) => {
         const randomLetter = generateRandomLetter();
         const randomNumber = generateRandomNumber();
         const randomCoordinate = randomLetter + randomNumber;
-        return randomCoordinate;
+        if (playerHasAttacked.includes(randomCoordinate)) {
+          return getRandomCoordinate()
+        } else {
+          return randomCoordinate;  
+        } 
     }
     
     if (playerId == "computer") {
