@@ -8,13 +8,18 @@ const Player = (turn, id) => {
     }
     const playerHasAttacked = [];
 
+    const handleTurn = () => {}
+
     const attack = (enemyPlayer, enemyGameboard, coord) => {
-        if (!isTurn) return null
-        enemyGameboard.receiveAttack(coord);
-        playerHasAttacked.push(coord);
-        setTurn(false);
-        enemyPlayer.setTurn(true);
-        return true
+        if (!getTurn()) {
+            return null;
+        } else {
+            setTurn(false);
+            playerHasAttacked.push(coord);
+            enemyGameboard.receiveAttack(coord);
+            enemyPlayer.setTurn(true);
+            return true
+        }    
     }
 
     const generateRandomLetter = () => {
