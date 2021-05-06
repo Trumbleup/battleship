@@ -1,1 +1,9 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.full-height {
+  height: 100vh;
+}
