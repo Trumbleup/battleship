@@ -13,6 +13,8 @@ const Player = (turn, id) => {
     const attack = (enemyPlayer, enemyGameboard, coord) => {
         if (!getTurn()) {
             return null;
+        } else if (playerHasAttacked.includes(coord)) {
+            return null;
         } else {
             setTurn(false);
             playerHasAttacked.push(coord);

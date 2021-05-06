@@ -92,6 +92,23 @@ describe('Testing the Player attack method', () => {
         computerPlayer.attack(player, playerGameboard, "D1");
         expect(player.attack(computerPlayer, computerGameboard, "A2")).toBeTruthy();
     })
+    test("Player cannot attack a previously attacked coordinate", () => {
+        player.attack(computerPlayer, computerGameboard, "A1");
+        computerPlayer.attack(player, playerGameboard, "D1");
+        expect(player.attack(computerPlayer, computerGameboard, "A1")).toBeFalsy();
+    })
+    test("Computer player cannot attack a previously attacked coordinate", () => {
+        player.attack(computerPlayer, computerGameboard, "A1");
+        computerPlayer.attack(player, playerGameboard, "D1");
+        player.attack(computerPlayer, computerGameboard, "E7");
+        computerPlayer.attack(player, playerGameboard, "E5");
+        player.attack(computerPlayer, computerGameboard, "E10");
+        expect(computerPlayer.attack(player, playerGameboard, "E5")).toBeFalsy();
+    })
+    test("Computer player can attack sucessfully", () => {
+        player.attack(computerPlayer, computerGameboard, "A1");
+        expect(computerPlayer.attack(player, playerGameboard, computerPlayer.getRandomCoordinate())).toBeTruthy();
+    })
 })
 
 describe("Testing computer AI functions", () => {
@@ -111,8 +128,8 @@ describe("Testing computer AI functions", () => {
             playerId: "computer",
             getPlayerId: () => playerId,
             getTurn: () => isTurn,
-            setTurn: (newTurn) => {
-               isTurn = newTurn
+            setTurn: function(newTurn) {
+               this.isTurn = newTurn
             },
             playerHasAttacked: [
                 "A1","A2","A3","A4","A5","A6","A7","A8","A9","A10",
@@ -125,12 +142,14 @@ describe("Testing computer AI functions", () => {
                 "H1","H2","H3","H4","H5","H6","H7","H8","H9","H10",
                 "I1","I2","I3","I4","I5","I6","I7","I8","I9","I10"
             ],
-            attack: (enemyPlayer, enemyGameboard, coord) => {
-                if (!getTurn()) {
+            attack: function(enemyPlayer, enemyGameboard, coord) {
+                if (!this.isTurn) {
                     return null;
-                } else {
-                    setTurn(false);
-                    playerHasAttacked.push(coord);
+                } else if (this.playerHasAttacked.includes(coord)) {
+                    return null;
+                }  else {
+                    this.setTurn(false);
+                    this.playerHasAttacked.push(coord);
                     enemyGameboard.receiveAttack(coord);
                     enemyPlayer.setTurn(true);
                     return true
@@ -186,5 +205,8 @@ describe("Testing computer AI functions", () => {
     test("Computer AI generates a random coordinate that Computer hasn't attacked", () => {
         const mockHasAttacked = mockComputerPlayer.playerHasAttacked;
         expect(mockHasAttacked.includes(mockComputerPlayer.getRandomCoordinate())).toBeFalsy();
+    });
+    test("Computer AI can sucessfully attack the player", () => {
+        expect(mockComputerPlayer.attack(player, playerGameboard, mockComputerPlayer.getRandomCoordinate())).toBeTruthy();
     });
 })
