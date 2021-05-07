@@ -1,8 +1,18 @@
-.gameboard {
+/* .gameboard {
   width: 800px;
   height: 800px;
-}
+} */
 
 .black-border {
   border: 1px solid black;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.border-box {
+  box-sizing: border-box;
 }

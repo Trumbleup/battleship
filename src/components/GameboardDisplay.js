@@ -1,22 +1,25 @@
 import './GameboardDisplay.css';
-
-const Tile = (props) => {
-    return (
-        <div style={{width: 10, height: 10}} className="black-border">
-
-        </div>
-    )
-}
+import React, { useEffect, useState } from 'react';
+import Tiles from './Tiles'
 
 
-const GameboardDisplay = () => {
+
+const GameboardDisplay = ({ width }) => {
+    const [boardWidth, setBoardWidth] = useState(null);
+    const [boardHeight, setBoardHeight] = useState(null);
+
+    const handleBoardDimensions = () => {
+        setBoardWidth(width * (1/3));
+        setBoardHeight(boardWidth);
+    }
+
+    useEffect(() => {
+        handleBoardDimensions();
+    })
     return (
         <div className="gameboard-wrap">
-            <div className="gameboard black-border">
-                {
-                    
-                }
-                <Tile />
+            <div style={{width: boardWidth, height: boardHeight}} className="gameboard black-border">
+                <Tiles refWidth={boardWidth} refHeight={boardHeight} />
             </div>
         </div>
     )
