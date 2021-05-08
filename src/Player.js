@@ -8,8 +8,6 @@ const Player = (turn, id) => {
     }
     const playerHasAttacked = [];
 
-    const handleTurn = () => {}
-
     const attack = (enemyPlayer, enemyGameboard, coord) => {
         if (!getTurn()) {
             return null;
@@ -45,7 +43,7 @@ const Player = (turn, id) => {
         } 
     }
     
-    if (playerId == "computer") {
+    if (playerId === "computer") {
         return { getTurn, setTurn, getPlayerId, attack, generateRandomLetter, getRandomCoordinate }
     } else {
         return { getTurn, setTurn, getPlayerId, attack }

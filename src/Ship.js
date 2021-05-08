@@ -6,7 +6,7 @@ const Ship = (shipLength, name) => {
         hitTiles.push(tile);
     };
     const isSunk = () => {
-        if (hitTiles.length == length) {
+        if (hitTiles.length === length) {
             return true
         } else {
             return false

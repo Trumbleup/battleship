@@ -9,7 +9,7 @@ const GameboardDisplay = ({ width }) => {
     const [boardHeight, setBoardHeight] = useState(null);
 
     const handleBoardDimensions = () => {
-        setBoardWidth(width * (1/3));
+        setBoardWidth(width * (1/4));
         setBoardHeight(boardWidth);
     }
 
@@ -18,7 +18,7 @@ const GameboardDisplay = ({ width }) => {
     })
     return (
         <div className="gameboard-wrap">
-            <div style={{width: boardWidth, height: boardHeight}} className="gameboard black-border">
+            <div style={{width: boardWidth, height: boardHeight}} className="black-border purple">
                 <Tiles refWidth={boardWidth} refHeight={boardHeight} />
             </div>
         </div>
