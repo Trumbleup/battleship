@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
-import GameboardDisplay from './components/GameboardDisplay';
+import GameboardGrid from './components/GameboardGrid';
 import GameLoop from './GameLoop.js'
 import './App.css';
 
 
 function App() {
   const [width, setWidth] = useState(null);
-  const [height, setHeight] = useState(null);
-
+  
   const gameLoop = GameLoop();
+  const player = gameLoop.player;
+  const computerPlayer = gameLoop.computerPlayer;
+  const playerGameboard = gameLoop.playerGameboard;
+  const computerGameboard = gameLoop.computerGameboard;
 
   const handleDimensions = () => {
     setWidth(window.innerWidth)
-    setHeight(window.innerHeight);
   }
 
   const handleResize = () => {
@@ -27,8 +29,16 @@ function App() {
 
   return (
     <div className="flex row full-height gradient">
-      <GameboardDisplay width={width} height={height}/>
-      <GameboardDisplay width={width} height={height}/>
+      <GameboardGrid 
+        width={width}
+        player={player}
+        gameboard={playerGameboard}
+      />
+      <GameboardGrid 
+        width={width}
+        player={computerPlayer}
+        gameboard={computerGameboard} 
+      />
     </div>
   );
 }
