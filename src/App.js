@@ -6,7 +6,6 @@ import './App.css';
 
 function App() {
   const [width, setWidth] = useState(null);
-  const [turn, setTurn] = useState("player");
   const gameLoop = GameLoop();
   const player = gameLoop.player;
   const computerPlayer = gameLoop.computerPlayer;
@@ -21,10 +20,6 @@ function App() {
     handleDimensions();
   }
 
-  const handleTurn = (player) => {
-    setTurn(player)
-  }
-
   useEffect(() => {
     handleDimensions();
     window.addEventListener('resize', handleResize);
@@ -33,20 +28,18 @@ function App() {
 
   return (
     <div className="flex row full-height gradient">
-      <div className="absolute">{turn}</div>
+      <div className="absolute">Player Placeholder</div>
       <GameboardGrid 
         width={width}
         player={player}
         enemyPlayer={computerPlayer}
         gameboard={playerGameboard}
-        handleTurn={handleTurn}
       />
       <GameboardGrid 
         width={width}
         player={computerPlayer}
         enemyPlayer={player}
-        gameboard={computerGameboard}
-        handleTurn={handleTurn} 
+        gameboard={computerGameboard} 
       />
     </div>
   );

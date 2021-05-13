@@ -4,7 +4,7 @@ import Tiles from './Tiles'
 
 
 
-const GameboardDisplay = ({ width, player, enemyPlayer, gameboard, handleTurn }) => {
+const GameboardDisplay = ({ width, player, enemyPlayer, gameboard }) => {
     const [boardWidth, setBoardWidth] = useState(null);
     const [boardHeight, setBoardHeight] = useState(null);
 
@@ -33,7 +33,6 @@ const GameboardDisplay = ({ width, player, enemyPlayer, gameboard, handleTurn })
                 handleReceiveAttack={handleReceiveAttack} 
                 player={player} 
                 enemyPlayer={enemyPlayer}
-                handleTurn={handleTurn}
                 />
             </div>
         </div>

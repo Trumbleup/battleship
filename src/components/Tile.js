@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './GameboardDisplay.css'
 
-const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAttack, player, enemyPlayer, handleTurn }) => {
+const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAttack, player, enemyPlayer }) => {
     const [isShot, setIsShot] = useState(false);
     const [hasShip, setHasShip] = useState(false);
 
@@ -14,6 +14,7 @@ const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAt
     }
 
     const handleOnClick = () => {
+        debugger;
         if (enemyPlayer.getTurn()) {
             handleIsShot();
             handleReceiveAttack(coordinate);
