@@ -4,7 +4,7 @@ import Tiles from './Tiles'
 
 
 
-const GameboardDisplay = ({ width, player, gameboard }) => {
+const GameboardDisplay = ({ width, player, enemyPlayer, gameboard, handleTurn }) => {
     const [boardWidth, setBoardWidth] = useState(null);
     const [boardHeight, setBoardHeight] = useState(null);
 
@@ -15,6 +15,10 @@ const GameboardDisplay = ({ width, player, gameboard }) => {
         setBoardHeight(boardWidth);
     }
 
+    const handleReceiveAttack = (coord) => {
+        enemyPlayer.attack(player, gameboard, coord)
+    }
+
     useEffect(() => {
         handleBoardDimensions();
     })
@@ -22,7 +26,15 @@ const GameboardDisplay = ({ width, player, gameboard }) => {
     return (
         <div className="gameboard-wrap">
             <div style={{width: boardWidth, height: boardHeight}} className="black-border purple">
-                <Tiles refWidth={boardWidth} refHeight={boardHeight} shipPlacements={shipPlacements}/>
+                <Tiles 
+                refWidth={boardWidth} 
+                refHeight={boardHeight} 
+                shipPlacements={shipPlacements} 
+                handleReceiveAttack={handleReceiveAttack} 
+                player={player} 
+                enemyPlayer={enemyPlayer}
+                handleTurn={handleTurn}
+                />
             </div>
         </div>
     )
