@@ -23,6 +23,7 @@ const GameLoop = () => {
     computerGameboard.placeShip(ship3, ["D4", "E4", "F4"]);
     computerGameboard.placeShip(ship4, ["G3", "G4", "G5"]);
     computerGameboard.placeShip(ship5, ["I5", "I6"]);
+    console.log('gameloop mounts?');
 
     return { player, computerPlayer, playerGameboard, computerGameboard }
 }

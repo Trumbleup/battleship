@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import './GameboardDisplay.css'
+import { useEffect, useState } from 'react';
+import './Tile.css';
 
 const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAttack, player, enemyPlayer }) => {
     const [isShot, setIsShot] = useState(false);
@@ -14,7 +14,6 @@ const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAt
     }
 
     const handleOnClick = () => {
-        debugger;
         if (enemyPlayer.getTurn()) {
             handleIsShot();
             handleReceiveAttack(coordinate);
@@ -34,7 +33,7 @@ const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAt
         <div 
         onClick={handleOnClick}
         style={{width: (1/10) * refWidth, height: (1/10) * refHeight}}
-        className="black-border border-box flex"
+        className="black-border border-box tile"
         data-coordinate={coordinate}
         >
             {(isShot) ?

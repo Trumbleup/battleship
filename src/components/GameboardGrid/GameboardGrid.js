@@ -1,8 +1,6 @@
-import './GameboardDisplay.css';
+import './GameboardGrid.css';
 import React, { useEffect, useState } from 'react';
-import Tiles from './Tiles'
-
-
+import Tiles from '../Tiles/Tiles'
 
 const GameboardDisplay = ({ width, player, enemyPlayer, gameboard }) => {
     const [boardWidth, setBoardWidth] = useState(null);
@@ -24,7 +22,7 @@ const GameboardDisplay = ({ width, player, enemyPlayer, gameboard }) => {
     })
 
     return (
-        <div className="gameboard-wrap">
+        <div>
             <div style={{width: boardWidth, height: boardHeight}} className="black-border purple">
                 <Tiles 
                 refWidth={boardWidth} 

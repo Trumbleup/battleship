@@ -1,8 +1,5 @@
-import Tile from './Tile'
-import './GameboardDisplay.css'
-
-
-
+import Tile from '../Tile/Tile';
+import './Tiles.css';
 
 const Tiles = ({ refWidth, refHeight, shipPlacements, handleReceiveAttack, player, enemyPlayer }) => {
     const alphabetRange = "ABCDEFGHIJ".split('');

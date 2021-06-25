@@ -2,16 +2,10 @@
   border: 1px solid black;
 }
 
-.flex {
+.tile {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 .border-box {
