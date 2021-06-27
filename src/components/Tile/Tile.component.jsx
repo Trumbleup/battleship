@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Tile.css';
 
-const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAttack, player, enemyPlayer }) => {
+const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAttack, handleSetCurrentTurn, player, enemyPlayer }) => {
     const [isShot, setIsShot] = useState(false);
     const [hasShip, setHasShip] = useState(false);
 
@@ -17,6 +17,7 @@ const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAt
         if (enemyPlayer.getTurn()) {
             handleIsShot();
             handleReceiveAttack(coordinate);
+            handleSetCurrentTurn(player);
         } else {
             return null
         }

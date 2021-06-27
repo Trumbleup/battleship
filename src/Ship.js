@@ -4,6 +4,7 @@ const Ship = (shipLength, name) => {
     const getHitTiles = () => hitTiles;
     const hit = (tile) => {
         hitTiles.push(tile);
+        console.log(hitTiles)
     };
     const isSunk = () => {
         if (hitTiles.length === length) {
@@ -13,7 +14,7 @@ const Ship = (shipLength, name) => {
         }
     }
 
-    return { hit, getHitTiles, isSunk, length, name }
+    return { hit, getHitTiles, hitTiles, isSunk, length, name }
 }
 
 export default Ship;

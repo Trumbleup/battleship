@@ -1,8 +1,8 @@
 import './GameboardGrid.css';
 import React, { useEffect, useState } from 'react';
-import Tiles from '../Tiles/Tiles'
+import Tiles from '../Tiles/Tiles.component'
 
-const GameboardDisplay = ({ width, player, enemyPlayer, gameboard }) => {
+const GameboardDisplay = ({ width, player, enemyPlayer, gameboard, handleSetCurrentTurn }) => {
     const [boardWidth, setBoardWidth] = useState(null);
     const [boardHeight, setBoardHeight] = useState(null);
 
@@ -31,6 +31,7 @@ const GameboardDisplay = ({ width, player, enemyPlayer, gameboard }) => {
                 handleReceiveAttack={handleReceiveAttack} 
                 player={player} 
                 enemyPlayer={enemyPlayer}
+                handleSetCurrentTurn={handleSetCurrentTurn}
                 />
             </div>
         </div>

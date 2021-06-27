@@ -44,9 +44,9 @@ const Player = (turn, id) => {
     }
     
     if (playerId === "computer") {
-        return { getTurn, setTurn, getPlayerId, attack, generateRandomLetter, getRandomCoordinate }
+        return { getTurn, setTurn, getPlayerId, attack, generateRandomLetter, getRandomCoordinate, playerHasAttacked }
     } else {
-        return { getTurn, setTurn, getPlayerId, attack }
+        return { getTurn, setTurn, getPlayerId, attack, playerHasAttacked }
     }
 
     

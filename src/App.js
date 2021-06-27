@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 import Gameboards from './components/Gameboards/Gameboards.component';
-import GameLoop from './GameLoop.js'
+import Ship from "./Ship.js";
+import Gameboard from "./Gameboard.js";
+import Player from "./Player.js";
 import './App.css';
 
 
 function App() {
   const [width, setWidth] = useState(null);
+  const [player, setPlayer] = useState(() => Player(true, 'player'));
+  const [computerPlayer, setComputerPlayer] = useState(() => Player(false, 'computer'));
+  const [playerGameboard, setPlayerGameboard] = useState(() => Gameboard('Player'));
+  const [computerGameboard, setComputerGameboard] = useState(() => Gameboard('Computer'));
+  const [currentTurn, setCurrentTurn] = useState('player');
   const [startGame, setStartGame] = useState(false);
-  const [player, setPlayer] = useState(null);
-  const [computerPlayer, setComputerPlayer] = useState(null);
-  const [playerGameboard, setPlayerGameboard] = useState(null);
-  const [computerGameboard, setComputerGameboard] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
+  const [winner, setWinner] = useState(null);
 
   const handleDimensions = () => {
     setWidth(window.innerWidth)
@@ -25,46 +30,56 @@ function App() {
     window.addEventListener('resize', handleResize);
   })
 
-  const handlePlayers = (gameLoop) => {
-    setPlayer(gameLoop.player);
-    setComputerPlayer(gameLoop.computerPlayer);
-    setPlayerGameboard(gameLoop.playerGameboard);
-    setComputerGameboard(gameLoop.computerGameboard);
+  const handleSetCurrentTurn = (currentPlayer) => {
+    if (currentPlayer.getTurn() === true) {
+      setCurrentTurn(currentPlayer.getPlayerId);
+    }
   }
 
-  const handleStartGame = () => {
-    setStartGame(true);
+  const placeShipsOnBoard = (board) => {
+    const ship1 = Ship(5, 'carrier');
+    const ship2 = Ship(4, 'battleship');
+    const ship3 = Ship(3, 'cruiser');
+    const ship4 = Ship(3, 'submarine');
+    const ship5 = Ship(2, 'destroyer');
+    board.placeShip(ship1, ["A1", "A2", "A3", "A4", "A5"]);
+    board.placeShip(ship2, ["B1", "B2", "B3", "B4"]);
+    board.placeShip(ship3, ["D4", "E4", "F4"]);
+    board.placeShip(ship4, ["G3", "G4", "G5"]);
+    board.placeShip(ship5, ["I5", "I6"]);
   }
 
   useEffect(() => {
-      if (!startGame) {
-        handleStartGame();
-      } else {
-        const gameLoop = GameLoop();
-        handlePlayers(gameLoop);
-        console.log(startGame);
-      }
+    if (!startGame) {
+      placeShipsOnBoard(playerGameboard);
+      placeShipsOnBoard(computerGameboard);
+      setStartGame(true)
+    }
   }, [startGame])
+  
 
   useEffect(() => {
-    console.log(player)
-    console.log(computerPlayer)
-    console.log(playerGameboard)
-    console.log(computerGameboard)
-  }, [player, computerPlayer, playerGameboard, computerGameboard])
-
+    if (playerGameboard.reportAllSunk()) {
+      setGameOver(true);
+      setWinner('Computer')
+    } else if (computerGameboard.reportAllSunk()) {
+      setGameOver(true);
+      setWinner('Player')
+    }
+  }, [currentTurn])
 
   return (
     <div className="app-container full-width full-height gradient">
-      <div className="turn-header absolute">Player Turn Placeholder</div>
+      <div className="turn-header absolute">{currentTurn}   Is Game Over: {gameOver ? 'true' : 'false'}</div>
         {
-          (player) ?
+          (playerGameboard) ?
             <Gameboards 
               width={width} 
               player={player} 
               computerPlayer={computerPlayer} 
               playerGameboard={playerGameboard} 
               computerGameboard={computerGameboard}
+              handleSetCurrentTurn={handleSetCurrentTurn}
             />
             :
             null
