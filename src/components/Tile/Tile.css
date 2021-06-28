@@ -23,3 +23,8 @@
 .red {
   background-color: red;
 }
+
+.sunk {
+  position: absolute;
+  background-color: red;
+}

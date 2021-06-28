@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import Gameboards from './components/Gameboards/Gameboards.component';
 import Ship from "./Ship.js";
 import Gameboard from "./Gameboard.js";
 import Player from "./Player.js";
+import Gameboards from './components/Gameboards/Gameboards.component';
+import EndHeader from './components/EndHeader/EndHeader.component';
 import './App.css';
 
 
@@ -49,13 +50,23 @@ function App() {
     board.placeShip(ship5, ["I5", "I6"]);
   }
 
+  const handleResetGame = () => {
+    setPlayer(() => Player(true, 'player'));
+    setComputerPlayer(() => Player(false, 'computer'));
+    setPlayerGameboard(() => Gameboard('Player'));
+    setComputerGameboard(() => Gameboard('Computer'));
+    setStartGame(false);
+    setGameOver(false);
+    console.log('clicked');
+  }
+
   useEffect(() => {
     if (!startGame) {
       placeShipsOnBoard(playerGameboard);
       placeShipsOnBoard(computerGameboard);
       setStartGame(true)
     }
-  }, [startGame])
+  }, [startGame, playerGameboard, computerGameboard])
   
 
   useEffect(() => {
@@ -66,24 +77,24 @@ function App() {
       setGameOver(true);
       setWinner('Player')
     }
-  }, [currentTurn])
+  }, [currentTurn, playerGameboard, computerGameboard])
 
   return (
     <div className="app-container full-width full-height gradient">
-      <div className="turn-header absolute">{currentTurn}   Is Game Over: {gameOver ? 'true' : 'false'}</div>
-        {
-          (playerGameboard) ?
-            <Gameboards 
-              width={width} 
-              player={player} 
-              computerPlayer={computerPlayer} 
-              playerGameboard={playerGameboard} 
-              computerGameboard={computerGameboard}
-              handleSetCurrentTurn={handleSetCurrentTurn}
-            />
-            :
-            null
-        }
+      {
+        (!gameOver) ?
+        <div className="">{currentTurn}</div>
+        :
+        <EndHeader winner={winner} handleResetGame={handleResetGame}/>
+      }
+        <Gameboards 
+          width={width} 
+          player={player} 
+          computerPlayer={computerPlayer} 
+          playerGameboard={playerGameboard} 
+          computerGameboard={computerGameboard}
+          handleSetCurrentTurn={handleSetCurrentTurn}
+        />
     </div>
   );
 }

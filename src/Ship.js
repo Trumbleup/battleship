@@ -4,7 +4,6 @@ const Ship = (shipLength, name) => {
     const getHitTiles = () => hitTiles;
     const hit = (tile) => {
         hitTiles.push(tile);
-        console.log(hitTiles)
     };
     const isSunk = () => {
         if (hitTiles.length === length) {
