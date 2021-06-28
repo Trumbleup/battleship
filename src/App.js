@@ -87,6 +87,8 @@ function App() {
         :
         <EndHeader winner={winner} handleResetGame={handleResetGame}/>
       }
+      {
+        (startGame) ?
         <Gameboards 
           width={width} 
           player={player} 
@@ -96,6 +98,10 @@ function App() {
           handleSetCurrentTurn={handleSetCurrentTurn}
           gameOver={gameOver}
         />
+        :
+        null
+      }
+        
     </div>
   );
 }
