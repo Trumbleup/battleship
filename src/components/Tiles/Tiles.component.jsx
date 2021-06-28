@@ -1,7 +1,7 @@
 import Tile from '../Tile/Tile.component';
 import './Tiles.css';
 
-const Tiles = ({ refWidth, refHeight, shipPlacements, handleReceiveAttack, handleSetCurrentTurn, player, enemyPlayer }) => {
+const Tiles = ({ refWidth, refHeight, shipPlacements, handleReceiveAttack, handleSetCurrentTurn, player, enemyPlayer, gameOver }) => {
     const alphabetRange = "ABCDEFGHIJ".split('');
     const tilesArr = [];
     for (let x = 0; x < 10; x++) {
@@ -19,6 +19,7 @@ const Tiles = ({ refWidth, refHeight, shipPlacements, handleReceiveAttack, handl
                 player={player}
                 enemyPlayer={enemyPlayer}
                 handleSetCurrentTurn={handleSetCurrentTurn}
+                gameOver={gameOver}
                 />
             );
         }   

@@ -1,7 +1,7 @@
 import GameboardGrid from '../GameboardGrid/GameboardGrid.component';
 import './Gameboards.css';
 
-const Gameboards = ({ width, player, computerPlayer, playerGameboard, computerGameboard, handleSetCurrentTurn }) => (
+const Gameboards = ({ width, player, computerPlayer, playerGameboard, computerGameboard, handleSetCurrentTurn, gameOver }) => (
     <div className='gameboards'>
         <GameboardGrid
             width={width}
@@ -9,13 +9,15 @@ const Gameboards = ({ width, player, computerPlayer, playerGameboard, computerGa
             enemyPlayer={computerPlayer}
             gameboard={playerGameboard}
             handleSetCurrentTurn={handleSetCurrentTurn}
+            gameOver={gameOver}
         />
         <GameboardGrid 
             width={width}
             player={computerPlayer}
             enemyPlayer={player}
             gameboard={computerGameboard}
-            handleSetCurrentTurn={handleSetCurrentTurn} 
+            handleSetCurrentTurn={handleSetCurrentTurn}
+            gameOver={gameOver} 
         />
     </div>
 )

@@ -94,6 +94,7 @@ function App() {
           playerGameboard={playerGameboard} 
           computerGameboard={computerGameboard}
           handleSetCurrentTurn={handleSetCurrentTurn}
+          gameOver={gameOver}
         />
     </div>
   );
