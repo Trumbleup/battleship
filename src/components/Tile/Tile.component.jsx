@@ -13,7 +13,7 @@ const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAt
     const handleSetHasShip = () => {
         setHasShip(true);
     }
-
+    
     const handleOnClick = () => {
         if (gameOver) {
             return

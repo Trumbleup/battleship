@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import Ship from "./Ship.js";
 import Gameboard from "./Gameboard.js";
 import Player from "./Player.js";
-import Gameboards from './components/Gameboards/Gameboards.component';
-import EndHeader from './components/EndHeader/EndHeader.component';
+import StartingScreen from './components/StartingScreen/StartingScreen.component.jsx';
+import GameScreen from './components/GameScreen/GameScreen.component.jsx';
 import './App.css';
 
 
@@ -60,13 +60,13 @@ function App() {
     console.log('clicked');
   }
 
-  useEffect(() => {
-    if (!startGame) {
-      placeShipsOnBoard(playerGameboard);
-      placeShipsOnBoard(computerGameboard);
-      setStartGame(true)
-    }
-  }, [startGame, playerGameboard, computerGameboard])
+  // useEffect(() => {
+  //   if (!startGame) {
+  //     placeShipsOnBoard(playerGameboard);
+  //     placeShipsOnBoard(computerGameboard);
+  //     setStartGame(true)
+  //   }
+  // }, [startGame, playerGameboard, computerGameboard])
   
 
   useEffect(() => {
@@ -82,26 +82,22 @@ function App() {
   return (
     <div className="app-container full-width full-height gradient">
       {
-        (!gameOver) ?
-        <div className="">{currentTurn}</div>
+        (!startGame) ?
+        <StartingScreen width={width}/>
         :
-        <EndHeader winner={winner} handleResetGame={handleResetGame}/>
-      }
-      {
-        (startGame) ?
-        <Gameboards 
+        <GameScreen
           width={width} 
           player={player} 
           computerPlayer={computerPlayer} 
           playerGameboard={playerGameboard} 
           computerGameboard={computerGameboard}
           handleSetCurrentTurn={handleSetCurrentTurn}
+          handleResetGame={handleResetGame}
+          currentTurn={currentTurn}
           gameOver={gameOver}
+          winner={winner}
         />
-        :
-        null
       }
-        
     </div>
   );
 }

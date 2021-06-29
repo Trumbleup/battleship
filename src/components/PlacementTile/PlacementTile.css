@@ -1,0 +1,13 @@
+.black-border {
+  border: 1px solid black;
+}
+
+.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.border-box {
+  box-sizing: border-box;
+}
