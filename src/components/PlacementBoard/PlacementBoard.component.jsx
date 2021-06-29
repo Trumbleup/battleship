@@ -7,11 +7,12 @@ const PlacementBoard = ({ width }) => {
     const [boardWidth, setBoardWidth] = useState(null);
     const [boardHeight, setBoardHeight] = useState(null);
     const [carrierCoords, setCarrierCoords] = useState([]);
-    // const [battleShipCoords, setBattleShipCoords] = useState([]);
-    // const [cruiserCoords, setCruiserCoords] = useState([]);
-    // const [submarineCoords, setSubmarineCoords] = useState([]);
-    // const [destroyerCoords, setDestroyerCoords] = useState([]);
-    const [shipsPlaced, setShipsPlaced] = useState(3);
+    const [battleShipCoords, setBattleShipCoords] = useState([]);
+    const [cruiserCoords, setCruiserCoords] = useState([]);
+    const [submarineCoords, setSubmarineCoords] = useState([]);
+    const [destroyerCoords, setDestroyerCoords] = useState([]);
+    const [takenCoords, setTakenCoords] = useState([]);
+    const [shipsPlaced, setShipsPlaced] = useState(0);
     const [hoveredTile, setHoveredTile] = useState(null);
     const [highlightedTiles, setHighlightedTiles] = useState([]);
 
@@ -28,27 +29,21 @@ const PlacementBoard = ({ width }) => {
         setCarrierCoords(array)
     }
 
-    // const handleBattleShipCoords = (array) => {
-    //     setBattleShipCoords(array)
-    // }
+    const handleBattleShipCoords = (array) => {
+        setBattleShipCoords(array)
+    }
 
-    // const handleCruiserCoords = (array) => {
-    //     setCruiserCoords(array)
-    // }
+    const handleCruiserCoords = (array) => {
+        setCruiserCoords(array)
+    }
     
-    // const handleSubmarineCoords = (array) => {
-    //     setSubmarineCoords(array)
-    // }
+    const handleSubmarineCoords = (array) => {
+        setSubmarineCoords(array)
+    }
 
-    // const handleDestroyerCoords = (array) => {
-    //     setDestroyerCoords(array)
-    // };
-
-    // const handleSetShipsPlaced = () => {
-    //     switch (shipsPlaced) {
-    //         case 0:
-    //     }
-    // }
+    const handleDestroyerCoords = (array) => {
+        setDestroyerCoords(array)
+    };
 
     const handleHoveredTile = (coord) => {
         setHoveredTile(coord);
@@ -68,14 +63,35 @@ const PlacementBoard = ({ width }) => {
             for (let i = 0; i < lengthOfShip; i++) {
                 coordArray.push(coordLetter + (i + coordNumber));
             }
-            console.log(coordArray);
             return coordArray
+        }
+
+        return null
+    }
+
+    const areCoordinatesAvailable = (correspondingCoords, takenCoords) => {
+        if (correspondingCoords && takenCoords) {
+            correspondingCoords.forEach(correspondingCoord => {
+                if (takenCoords.includes(correspondingCoord)) {
+                    return false
+                } else {
+                    return true
+                }
+            })
         }
     }
 
     const handleHighlightedTiles = (hoveredTile) => {
         const correspondingTiles = getCorrespondingTiles(hoveredTile);
+        if (takenCoords) {
+            const coordsAvailable = areCoordinatesAvailable(correspondingTiles, takenCoords);
+            if (coordsAvailable) {
+                setHighlightedTiles(correspondingTiles);
+                return
+            }
+        }
         setHighlightedTiles(correspondingTiles);
+        return   
     }
 
     useEffect(() => {
@@ -97,6 +113,65 @@ const PlacementBoard = ({ width }) => {
         board.placeShip(ship5, ["I5", "I6"]);
     }
 
+    const handleSetShipsPlaced = () => {
+        switch (shipsPlaced) {
+            case 0:
+                setShipsPlaced(1);
+                break;
+            case 1:
+                setShipsPlaced(2);
+                break;
+            case 2:
+                setShipsPlaced(3);
+                break;
+            case 3:
+                setShipsPlaced(4);
+                break;
+            case 4:
+                setShipsPlaced(5);
+                break;
+        }
+    }
+
+    const handleShipCoordinates = () => {
+        switch (shipsPlaced) {
+            case 0: 
+                handleCarrierCoords(highlightedTiles);
+                handleSetShipsPlaced();
+                break;
+            case 1: 
+                handleBattleShipCoords(highlightedTiles);
+                handleSetShipsPlaced();
+                break;
+            case 2: 
+                handleCruiserCoords(highlightedTiles);
+                handleSetShipsPlaced();
+                break;
+            case 3: 
+                handleSubmarineCoords(highlightedTiles);
+                handleSetShipsPlaced();
+                break;
+            case 4: 
+                handleDestroyerCoords(highlightedTiles);
+                handleSetShipsPlaced();
+                break;
+        }
+    }
+
+    const handleTakenCoordiantes = () => {
+        let newArray = [];
+        carrierCoords.forEach(coord => newArray.push(coord));
+        battleShipCoords.forEach(coord => newArray.push(coord));
+        cruiserCoords.forEach(coord => newArray.push(coord));
+        submarineCoords.forEach(coord => newArray.push(coord));
+        destroyerCoords.forEach(coord => newArray.push(coord));
+        setTakenCoords(newArray);
+    }
+
+    useEffect(() => {
+        handleTakenCoordiantes();
+    }, [carrierCoords, battleShipCoords, cruiserCoords, submarineCoords, destroyerCoords])
+
     return (
         <div style={{width: boardWidth, height: boardHeight}} className="black-border purple">
             <PlacementTiles 
@@ -104,6 +179,8 @@ const PlacementBoard = ({ width }) => {
             refHeight={boardHeight}
             highlightedTiles={highlightedTiles}
             handleHoveredTile={handleHoveredTile}
+            handleShipCoordinates={handleShipCoordinates}
+            takenCoords={takenCoords}
             />
         </div>
     )
