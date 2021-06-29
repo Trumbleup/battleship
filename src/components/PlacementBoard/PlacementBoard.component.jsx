@@ -54,26 +54,28 @@ const PlacementBoard = ({ width }) => {
         setHoveredTile(coord);
     }
 
-    const handleHighlightedTiles = (hoveredTile) => {
+    const getCorrespondingTiles = (hoveredTile) => {
         const splitCoordinate = hoveredTile.match(/[a-z]+|[^a-z]+/gi); // Split Letter and Number
         const coordLetter = splitCoordinate[0];
         const coordNumber = Number(splitCoordinate[1]);
-        console.log(coordLetter, coordNumber)
-
-        switch (shipsPlaced) {
-            case 0: // placing the carrier
-                if ((coordNumber + 5) <= 10 ) {
-                    let coordArray = [];
-                    for (let i = 0; i < 5; i++) {
-                        coordArray.push(coordLetter + (i + coordNumber));
-                    }
-                    console.log(coordArray);
-                    // setHighlightedTiles(coordArray);
-                }
-                break;
-            default:
-                console.log('default route');
+        const amountOfShipsPlaced = shipsPlaced;
+        let lengthOfShip = 5 - amountOfShipsPlaced;
+        if (amountOfShipsPlaced >= 3) { // to account for submarine and destroyer lengths
+            lengthOfShip = lengthOfShip + 1;
+        } 
+        if (((coordNumber - 1) + lengthOfShip) <= 10 ) {
+            let coordArray = [];
+            for (let i = 0; i < lengthOfShip; i++) {
+                coordArray.push(coordLetter + (i + coordNumber));
+            }
+            console.log(coordArray);
+            return coordArray
         }
+    }
+
+    const handleHighlightedTiles = (hoveredTile) => {
+        const correspondingTiles = getCorrespondingTiles(hoveredTile);
+        setHighlightedTiles(correspondingTiles);
     }
 
     useEffect(() => {
