@@ -11,3 +11,7 @@
 .border-box {
   box-sizing: border-box;
 }
+
+.sky-blue {
+  background-color: skyblue;
+}

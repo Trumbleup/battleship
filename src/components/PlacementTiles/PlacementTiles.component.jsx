@@ -1,7 +1,7 @@
 import PlacementTile from '../PlacementTile/PlacementTile.component';
 import './PlacementTiles.css';
 
-const PlacementTiles = ({ refWidth, refHeight, handleHoveredTile }) => {
+const PlacementTiles = ({ refWidth, refHeight, handleHoveredTile, highlightedTiles }) => {
     const alphabetRange = "ABCDEFGHIJ".split('');
     const tilesArr = [];
     for (let x = 0; x < 10; x++) {
@@ -15,6 +15,7 @@ const PlacementTiles = ({ refWidth, refHeight, handleHoveredTile }) => {
                 key={coordinate} 
                 coordinate={coordinate}
                 handleHoveredTile={handleHoveredTile}
+                highlightedTiles={highlightedTiles}
                 />
             );
         }   

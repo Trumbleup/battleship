@@ -11,7 +11,7 @@ const PlacementBoard = ({ width }) => {
     // const [cruiserCoords, setCruiserCoords] = useState([]);
     // const [submarineCoords, setSubmarineCoords] = useState([]);
     // const [destroyerCoords, setDestroyerCoords] = useState([]);
-    const [shipsPlaced, setShipsPlaced] = useState(0);
+    const [shipsPlaced, setShipsPlaced] = useState(3);
     const [hoveredTile, setHoveredTile] = useState(null);
     const [highlightedTiles, setHighlightedTiles] = useState([]);
 
@@ -102,6 +102,7 @@ const PlacementBoard = ({ width }) => {
             <PlacementTiles 
             refWidth={boardWidth} 
             refHeight={boardHeight}
+            highlightedTiles={highlightedTiles}
             handleHoveredTile={handleHoveredTile}
             />
         </div>
