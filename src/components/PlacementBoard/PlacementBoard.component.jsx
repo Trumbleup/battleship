@@ -71,27 +71,25 @@ const PlacementBoard = ({ width }) => {
 
     const areCoordinatesAvailable = (correspondingCoords, takenCoords) => {
         if (correspondingCoords && takenCoords) {
+            let hasNoMatches = true;
             correspondingCoords.forEach(correspondingCoord => {
                 if (takenCoords.includes(correspondingCoord)) {
-                    return false
-                } else {
-                    return true
+                    hasNoMatches = false;
                 }
             })
+            return hasNoMatches
         }
     }
 
     const handleHighlightedTiles = (hoveredTile) => {
         const correspondingTiles = getCorrespondingTiles(hoveredTile);
-        if (takenCoords) {
+        if (takenCoords && correspondingTiles) {
             const coordsAvailable = areCoordinatesAvailable(correspondingTiles, takenCoords);
             if (coordsAvailable) {
                 setHighlightedTiles(correspondingTiles);
                 return
             }
-        }
-        setHighlightedTiles(correspondingTiles);
-        return   
+        }  
     }
 
     useEffect(() => {
@@ -134,27 +132,30 @@ const PlacementBoard = ({ width }) => {
     }
 
     const handleShipCoordinates = () => {
-        switch (shipsPlaced) {
-            case 0: 
-                handleCarrierCoords(highlightedTiles);
-                handleSetShipsPlaced();
-                break;
-            case 1: 
-                handleBattleShipCoords(highlightedTiles);
-                handleSetShipsPlaced();
-                break;
-            case 2: 
-                handleCruiserCoords(highlightedTiles);
-                handleSetShipsPlaced();
-                break;
-            case 3: 
-                handleSubmarineCoords(highlightedTiles);
-                handleSetShipsPlaced();
-                break;
-            case 4: 
-                handleDestroyerCoords(highlightedTiles);
-                handleSetShipsPlaced();
-                break;
+        const isAvailable = areCoordinatesAvailable(highlightedTiles, takenCoords);
+        if (isAvailable) {
+            switch (shipsPlaced) {
+                case 0: 
+                    handleCarrierCoords(highlightedTiles);
+                    handleSetShipsPlaced();
+                    break;
+                case 1: 
+                    handleBattleShipCoords(highlightedTiles);
+                    handleSetShipsPlaced();
+                    break;
+                case 2: 
+                    handleCruiserCoords(highlightedTiles);
+                    handleSetShipsPlaced();
+                    break;
+                case 3: 
+                    handleSubmarineCoords(highlightedTiles);
+                    handleSetShipsPlaced();
+                    break;
+                case 4: 
+                    handleDestroyerCoords(highlightedTiles);
+                    handleSetShipsPlaced();
+                    break;
+            }
         }
     }
 
