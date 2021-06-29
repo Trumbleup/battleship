@@ -1,0 +1,12 @@
+.gamescreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.gamescreen-header {
+  width: 200px;
+  margin: 0 auto;
+  text-align: center;
+}

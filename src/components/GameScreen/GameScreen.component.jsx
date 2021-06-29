@@ -1,13 +1,14 @@
 import React from 'react';
 import EndHeader from '../EndHeader/EndHeader.component';
 import Gameboards from '../Gameboards/Gameboards.component';
+import './GameScreen.css';
 
 const GameScreen =
      ({ width, player, computerPlayer, playerGameboard, computerGameboard, handleSetCurrentTurn, handleResetGame, winner, gameOver, currentTurn }) => (
-    <div>
+    <div className='gamescreen'>
     {
         (!gameOver) ?
-        <div className="">{currentTurn}</div>
+        <div className="gamescreen-header">{currentTurn}</div>
         :
         <EndHeader winner={winner} handleResetGame={handleResetGame}/>
     }
