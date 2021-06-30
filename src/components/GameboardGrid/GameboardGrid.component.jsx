@@ -2,9 +2,10 @@ import './GameboardGrid.css';
 import React, { useEffect, useState } from 'react';
 import Tiles from '../Tiles/Tiles.component'
 
-const GameboardGrid = ({ width, player, enemyPlayer, gameboard, handleSetCurrentTurn, gameOver }) => {
+const GameboardGrid = ({ width, player, enemyPlayer, gameboard, currentTurn, handleSetCurrentTurn, gameOver }) => {
     const [boardWidth, setBoardWidth] = useState(null);
     const [boardHeight, setBoardHeight] = useState(null);
+    const [coordinatesWithShips, setCoordinatesWithShips] = useState([]);
 
     const shipPlacements = gameboard.shipPlacements;
 
@@ -17,9 +18,28 @@ const GameboardGrid = ({ width, player, enemyPlayer, gameboard, handleSetCurrent
         enemyPlayer.attack(player, gameboard, coord)
     }
 
+    const handleComputerAttack = (attackingPlayer, defendingPlayer, defendingBoard, coord) => {
+        enemyPlayer.attack(player, gameboard, coord)
+    }
+
     useEffect(() => {
         handleBoardDimensions();
     })
+
+    useEffect(() => {
+        if (currentTurn === 'computer' && enemyPlayer.getPlayerId() === 'computer') {
+            const handleComputerTurn = () => {
+                const computerPlayer = enemyPlayer;
+                const humanPlayer = player;
+                const randomCoord = computerPlayer.getRandomCoordinate();
+                handleComputerAttack(computerPlayer, humanPlayer, gameboard, randomCoord);
+                handleSetCurrentTurn(humanPlayer);
+            }
+            setTimeout(() => {
+                handleComputerTurn()
+            }, 1000)   
+        }
+    }, [currentTurn])
 
     return (
         <div>
@@ -31,6 +51,7 @@ const GameboardGrid = ({ width, player, enemyPlayer, gameboard, handleSetCurrent
                 handleReceiveAttack={handleReceiveAttack} 
                 player={player} 
                 enemyPlayer={enemyPlayer}
+                currentTurn={currentTurn}
                 handleSetCurrentTurn={handleSetCurrentTurn}
                 gameOver={gameOver}
                 />

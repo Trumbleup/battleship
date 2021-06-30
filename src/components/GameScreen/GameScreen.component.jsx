@@ -8,7 +8,7 @@ const GameScreen =
     <div className='gamescreen'>
     {
         (!gameOver) ?
-        <div className="gamescreen-header">{currentTurn}</div>
+        <div className="gamescreen-header">{currentTurn.toUpperCase()}'S TURN!</div>
         :
         <EndHeader winner={winner} handleResetGame={handleResetGame}/>
     }
@@ -18,6 +18,7 @@ const GameScreen =
             computerPlayer={computerPlayer} 
             playerGameboard={playerGameboard} 
             computerGameboard={computerGameboard}
+            currentTurn={currentTurn}
             handleSetCurrentTurn={handleSetCurrentTurn}
             gameOver={gameOver}
         />

@@ -1,0 +1,19 @@
+.end-header {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  top: -100px;
+  font-size: 32px;
+}
+
+.end-header button {
+  width: 200px;
+  height: 40px;
+  color: white;
+  background-color: #333676;
+  border: 1px solid black;
+  position: absolute;
+  left: 51px;
+  top: 50px;
+}

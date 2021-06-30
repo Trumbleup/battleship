@@ -57,6 +57,7 @@ function App() {
     setComputerGameboard(() => Gameboard('Computer'));
     setStartGame(false);
     setGameOver(false);
+    setCurrentTurn('player')
   }
 
   const handleStartGame = (playerBoard, computerBoard, carrierCoords, battleshipCoords, cruiserCoords, submarineCoords, destroyerCoords) => {
@@ -70,10 +71,10 @@ function App() {
     if (startGame) {
       if (playerGameboard.reportAllSunk()) {
         setGameOver(true);
-        setWinner('Computer')
+        setWinner('Computer');
       } else if (computerGameboard.reportAllSunk()) {
         setGameOver(true);
-        setWinner('Player')
+        setWinner('Player');
       }
     }
   }, [startGame, currentTurn, playerGameboard, computerGameboard])

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PlacementTiles from '../PlacementTiles/PlacementTiles.component';
 import Ship from "../../Ship.js";
 
-const PlacementBoard = ({ width, handleStartGame, playerGameboard, computerGameboard }) => {
+const PlacementBoard = ({ width, handleStartGame, handleCurrentShip, playerGameboard, computerGameboard }) => {
     const [boardWidth, setBoardWidth] = useState(null);
     const [boardHeight, setBoardHeight] = useState(null);
     const [carrierCoords, setCarrierCoords] = useState([]);
@@ -178,6 +178,10 @@ const PlacementBoard = ({ width, handleStartGame, playerGameboard, computerGameb
             handleStartGame(playerGameboard, computerGameboard, carrierCoords, battleShipCoords, cruiserCoords, submarineCoords, destroyerCoords);
         }
     })
+
+    useEffect(() => {
+        handleCurrentShip(shipsPlaced);
+    }, [shipsPlaced])
 
     return (
         <div style={{width: boardWidth, height: boardHeight}} className="black-border purple">

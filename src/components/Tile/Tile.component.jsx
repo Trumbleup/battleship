@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Tile.css';
 
-const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAttack, handleSetCurrentTurn, player, enemyPlayer, gameOver }) => {
+const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAttack, currentTurn, handleSetCurrentTurn, player, enemyPlayer, gameOver }) => {
     const [isShot, setIsShot] = useState(false);
     const [hasShip, setHasShip] = useState(false);
     const [shipSunk, setShipSunk] = useState(false);
@@ -31,6 +31,9 @@ const Tile = ({ refWidth, refHeight, coordinate, shipPlacements, handleReceiveAt
         for (let ship in shipPlacements) {
             if (shipPlacements[ship].coordinates.includes(coordinate)) {
                 handleSetHasShip()
+            }
+            if (enemyPlayer.playerHasAttacked.includes(coordinate)) {
+                handleIsShot()
             }
             if (shipPlacements[ship].coordinates.includes(coordinate) && shipPlacements[ship].ship.isSunk()) {
                 setShipSunk(true)
