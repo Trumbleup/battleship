@@ -37,17 +37,17 @@ function App() {
     }
   }
 
-  const placeShipsOnBoard = (board) => {
+  const placeShipsOnBoard = (board, carrier, battleship, cruiser, submarine, destroyer) => {
     const ship1 = Ship(5, 'carrier');
     const ship2 = Ship(4, 'battleship');
     const ship3 = Ship(3, 'cruiser');
     const ship4 = Ship(3, 'submarine');
     const ship5 = Ship(2, 'destroyer');
-    board.placeShip(ship1, ["A1", "A2", "A3", "A4", "A5"]);
-    board.placeShip(ship2, ["B1", "B2", "B3", "B4"]);
-    board.placeShip(ship3, ["D4", "E4", "F4"]);
-    board.placeShip(ship4, ["G3", "G4", "G5"]);
-    board.placeShip(ship5, ["I5", "I6"]);
+    board.placeShip(ship1, carrier);
+    board.placeShip(ship2, battleship);
+    board.placeShip(ship3, cruiser);
+    board.placeShip(ship4, submarine);
+    board.placeShip(ship5, destroyer);
   }
 
   const handleResetGame = () => {
@@ -57,33 +57,32 @@ function App() {
     setComputerGameboard(() => Gameboard('Computer'));
     setStartGame(false);
     setGameOver(false);
-    console.log('clicked');
   }
 
-  // useEffect(() => {
-  //   if (!startGame) {
-  //     placeShipsOnBoard(playerGameboard);
-  //     placeShipsOnBoard(computerGameboard);
-  //     setStartGame(true)
-  //   }
-  // }, [startGame, playerGameboard, computerGameboard])
+  const handleStartGame = (playerBoard, computerBoard, carrierCoords, battleshipCoords, cruiserCoords, submarineCoords, destroyerCoords) => {
+    placeShipsOnBoard(playerBoard, carrierCoords, battleshipCoords, cruiserCoords, submarineCoords, destroyerCoords);
+    placeShipsOnBoard(computerBoard, carrierCoords, battleshipCoords, cruiserCoords, submarineCoords, destroyerCoords);
+    setStartGame(true);
+  }
   
 
   useEffect(() => {
-    if (playerGameboard.reportAllSunk()) {
-      setGameOver(true);
-      setWinner('Computer')
-    } else if (computerGameboard.reportAllSunk()) {
-      setGameOver(true);
-      setWinner('Player')
+    if (startGame) {
+      if (playerGameboard.reportAllSunk()) {
+        setGameOver(true);
+        setWinner('Computer')
+      } else if (computerGameboard.reportAllSunk()) {
+        setGameOver(true);
+        setWinner('Player')
+      }
     }
-  }, [currentTurn, playerGameboard, computerGameboard])
+  }, [startGame, currentTurn, playerGameboard, computerGameboard])
 
   return (
     <div className="app-container full-width full-height gradient">
       {
         (!startGame) ?
-        <StartingScreen width={width}/>
+        <StartingScreen width={width} handleStartGame={handleStartGame} playerGameboard={playerGameboard} computerGameboard={computerGameboard}/>
         :
         <GameScreen
           width={width} 
